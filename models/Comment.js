@@ -7,7 +7,7 @@ Comment.init({
     comment: {
         type: DataTypes.TEXT
     },
-    created_date: {
+    comment_date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW

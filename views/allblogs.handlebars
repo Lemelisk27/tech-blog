@@ -1,13 +1,17 @@
 {{#each blogs}}
-    <div class="row justify-content-center">
-        <div class="card col-9 my-3 bg-dark">
+<div class="row justify-content-center">
+    <div class="card col-9 my-3 bg-dark">
+        <a href="./blogs/{{id}}" class="text-decoration-none">
             <div class="card-body">
                 <div class="row justify-content-between">
                     <h3 class="card-title text-light">{{title}}</h3>
-                    <p class="text-light">Posted by {{User.username}} on {{created_date}}</p>
+                    <p class="text-light">Posted by {{User.username}} on {{format_date}}</p>
                 </div>
-            <p class="card-text bg-light p-3 m-0 rounded">{{content}}</p>
+                <p class="bg-light p-3 m-0 rounded text-body">{{content}}</p>
             </div>
-        </div>
+        </a>
     </div>
+</div>
 {{/each}}
+
+<script src="./js/allblogs.js"></script>

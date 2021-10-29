@@ -10,7 +10,7 @@ Blog.init({
     content: {
         type: DataTypes.TEXT
     },
-    created_date: {
+    blog_date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW

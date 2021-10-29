@@ -1,0 +1,26 @@
+{{#each blogs}}
+<div class="row justify-content-center">
+    <div class="card col-9 my-3 bg-dark">
+        <div class="card-body">
+            <div class="row justify-content-between">
+                <h3 class="card-title text-light">{{title}}</h3>
+                <p class="text-light">Posted by {{User.username}} on {{blog_date}}</p>
+            </div>
+            <p class="bg-light p-3 m-0 rounded text-body">{{content}}</p>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+{{#each comments}}
+<div class="row justify-content-center">
+    <div class="card col-8 my-3 bg-dark">
+        <div class="card-body">
+        <div class="row justify-content-end">
+            <p class="text-light">Posted by {{User.username}} on {{comment_date}}1</p>
+        </div>
+        <p class="bg-light p-3 m-0 rounded text-body">{{comment}}</p>
+        </div>
+    </div>
+</div>
+{{/each}}
