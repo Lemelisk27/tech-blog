@@ -1,0 +1,40 @@
+
+{{#if users}}
+<div class="bg-light rounded col-10 justify-content-center mx-auto mt-3 p-3 text-center">
+    <h1>Welcome to the dashboard {{users.first_name}} {{users.last_name}}</h1>
+    <p>Click on a post to update/delete it. Or, add a new post</p>
+</div>
+{{/if}}
+
+{{#each blogs}}
+<div class="row justify-content-center">
+    <div class="card col-9 my-3 bg-dark">
+        <a href="./dashboard/{{id}}" class="text-decoration-none">
+            <div class="card-body">
+                <div class="row justify-content-between">
+                    <h3 class="card-title text-light">{{title}}</h3>
+                    <p class="text-light">Posted by {{User.username}} on {{blog_date}}</p>
+                </div>
+                <p class="bg-light p-3 m-0 rounded text-body">{{content}}</p>
+            </div>
+        </a>
+    </div>
+</div>
+{{/each}}
+
+<form class="col-8 bg-dark mx-auto rounded py-3 my-3">
+    <h3 class="text-light">New Blog:</h3>
+    <div class="form-group">
+        <label for="formGroupExampleInput" class="text-light">Title</label>
+        <input type="text" class="form-control" id="blog-title" placeholder="New Title">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1" class="text-light">Content</label>
+        <textarea type:"text" class="form-control" id="blog_content" rows="3"></textarea>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary bg-secondary border-0 col-3" id="submitBtn">Submit</button>
+    </div>
+</form>
+
+<script src="/js/dashboard.js"></script>

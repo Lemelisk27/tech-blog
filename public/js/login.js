@@ -6,7 +6,6 @@ loginForm.addEventListener("click",(e)=>{
         username:document.querySelector("#username").value,
         password:document.querySelector("#password").value,
     }
-    console.log(userObj)
     fetch("/api/users/login",{
         method:"POST",
         body:JSON.stringify(userObj),
@@ -15,6 +14,7 @@ loginForm.addEventListener("click",(e)=>{
         }
     }).then(res=>{
         if(res.ok){
+            alert("You have been loged in.")
             location.href = "/users/dashboard"
         }
         else {
