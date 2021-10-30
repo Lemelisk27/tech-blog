@@ -7,9 +7,15 @@ router.get("/login",(req,res)=>{
     res.render("login")
 })
 
+router.get("/logout",(req,res)=>{
+    req.session.destroy()
+    res.redirect("/users/login")
+})
+
 router.get("/dashboard",(req,res)=>{
     if(!req.session.user){
-        return res.status(401).send("Please Login First")
+        res.redirect("/users/login")
+        return
     }
     Blog.findAll({
         where: {
@@ -51,36 +57,6 @@ router.post("/dashboard",(req,res)=>{
     })
 })
 
-router.get("/dashboard/:id",(req,res)=>{
-    if(!req.session.user){
-        return res.status(401).send("Please Login First")
-    }
-    Blog.findOne({
-        where: {
-            id: req.params.id
-        },
-        include:[User],
-        attributes:{
-            include: [
-                [sequelize.fn('date_format', sequelize.col('blog_date'), '%m-%d-%Y'), 'blog_date']
-            ]
-        }
-    }).then(blogData=>{
-        const hbsBlog = blogData.get({plain:true})
-        User.findOne({
-            where: {
-                id: req.session.user.id
-            }
-        }).then(userData=>{
-            const hbsUser = userData.get({plain:true})
-            res.render("userblogbyid",{
-                blogs:hbsBlog,
-                users:hbsUser
-            })
-        })
-    })
-})
-
 router.delete("/dashboard",(req,res)=>{
     if(!req.session.user){
         return res.status(401).send("Please Login First")
@@ -117,6 +93,36 @@ router.put("/dashboard",(req,res)=>{
     }).catch(err=> {
         console.log(err)
         res.status(500).json({message:"An Error Occured",err:err})
+    })
+})
+
+router.get("/dashboard/:id",(req,res)=>{
+    if(!req.session.user){
+        return res.status(401).send("Please Login First")
+    }
+    Blog.findOne({
+        where: {
+            id: req.params.id
+        },
+        include:[User],
+        attributes:{
+            include: [
+                [sequelize.fn('date_format', sequelize.col('blog_date'), '%m-%d-%Y'), 'blog_date']
+            ]
+        }
+    }).then(blogData=>{
+        const hbsBlog = blogData.get({plain:true})
+        User.findOne({
+            where: {
+                id: req.session.user.id
+            }
+        }).then(userData=>{
+            const hbsUser = userData.get({plain:true})
+            res.render("userblogbyid",{
+                blogs:hbsBlog,
+                users:hbsUser
+            })
+        })
     })
 })
 

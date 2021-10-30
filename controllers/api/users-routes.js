@@ -24,7 +24,8 @@ router.post("/login",(req,res)=>{
         }
     }).then(foundUser=>{
         if(!foundUser){
-            res.status(401).json({message:"Incorrect Username or Password"})
+            req.session.destroy()
+            res.redirect("/login")
         }
         else {
             if (bcrypt.compareSync(req.body.password,foundUser.password)){
@@ -36,7 +37,8 @@ router.post("/login",(req,res)=>{
                 res.json(foundUser)
             }
             else {
-                res.status(401).json({message:"Incorrect Username or Password"})
+                req.session.destroy()
+                res.redirect("/login")
             }
         }
     })

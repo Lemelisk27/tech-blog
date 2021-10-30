@@ -2,6 +2,7 @@ const loginForm = document.querySelector("#submitBtn")
 
 loginForm.addEventListener("click",(e)=>{
     e.preventDefault();
+    console.log("clicked")
     const userObj={
         username:document.querySelector("#username").value,
         password:document.querySelector("#password").value,
@@ -14,8 +15,9 @@ loginForm.addEventListener("click",(e)=>{
         }
     }).then(res=>{
         if(res.ok){
-            alert("You have been loged in.")
-            location.href = "/users/dashboard"
+            setInterval(() => {
+                location.href = "/users/dashboard"
+            }, 500);
         }
         else {
             alert("Incorrect Username or Password")

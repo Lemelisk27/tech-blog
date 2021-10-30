@@ -21,7 +21,7 @@ submitBtn.addEventListener("click",(e)=>{
                 location.reload()
             }
             else {
-                alert("Unable to Complete Request, Please try Again")
+                alert("Unable to Complete Request, Please Login and try Again")
             }
         })
     }
