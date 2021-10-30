@@ -4,7 +4,13 @@ const {User,Blog,Comment} = require('../../models');
 const sequelize = require('../../config/connection');
 
 router.get("/login",(req,res)=>{
-    res.render("login")
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
+    res.render("login",{
+        loggedIn:loggedIn
+    })
 })
 
 router.get("/logout",(req,res)=>{
@@ -13,7 +19,13 @@ router.get("/logout",(req,res)=>{
 })
 
 router.get("/signup",(req,res)=>{
-    res.render("signup")
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
+    res.render("signup",{
+        loggedIn:loggedIn
+    })
 })
 
 router.post("/signup",(req,res)=>{
@@ -34,6 +46,10 @@ router.post("/signup",(req,res)=>{
 })
 
 router.get("/dashboard",(req,res)=>{
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
     if(!req.session.user){
         res.redirect("/users/login")
         return
@@ -56,7 +72,8 @@ router.get("/dashboard",(req,res)=>{
             const hbsUser = userData.get({plain:true})
             res.render("dashboard",{
                 blogs:hbsBlog,
-                users:hbsUser
+                users:hbsUser,
+                loggedIn:loggedIn
             })
         })
     })
@@ -118,6 +135,10 @@ router.put("/dashboard",(req,res)=>{
 })
 
 router.get("/dashboard/:id",(req,res)=>{
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
     if(!req.session.user){
         return res.status(401).send("Please Login First")
     }
@@ -141,7 +162,8 @@ router.get("/dashboard/:id",(req,res)=>{
             const hbsUser = userData.get({plain:true})
             res.render("userblogbyid",{
                 blogs:hbsBlog,
-                users:hbsUser
+                users:hbsUser,
+                loggedIn:loggedIn
             })
         })
     })

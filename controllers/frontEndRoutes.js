@@ -4,6 +4,10 @@ const {User,Blog,Comment} = require('../models');
 const sequelize = require('../config/connection');
 
 router.get("/",(req,res)=>{
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
     Blog.findAll({
         order:["blog_date"],
         include:[User],
@@ -15,12 +19,17 @@ router.get("/",(req,res)=>{
     }).then(blogData=>{
         const hbsBlog = blogData.map(blogs=>blogs.get({plain:true}))
         res.render("allblogs",{
-            blogs:hbsBlog
+            blogs:hbsBlog,
+            loggedIn:loggedIn
         })
     })
 })
 
 router.get("/blogs/:id",(req,res)=>{
+    let loggedIn = false
+    if(req.session.user) {
+        loggedIn = true
+    }
     Blog.findAll({
         where: {
             id: req.params.id
@@ -49,7 +58,8 @@ router.get("/blogs/:id",(req,res)=>{
             const hbsComment = commentData.map(comments=>comments.get({plain:true}))
             res.render("blogsbyid",{
                 blogs:hbsBlog,
-                comments:hbsComment
+                comments:hbsComment,
+                loggedIn:loggedIn
             })
         })        
     })

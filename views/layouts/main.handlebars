@@ -14,9 +14,13 @@
                 <h1 class="justify-content-start align-self-center bg-light rounded p-2">The Tech Blog</h1>
                 <div class="navbar-nav col align-self-center justify-content-end">
                     <a class="nav-link text-light" href="/">Home</a>
+                    {{#if loggedIn}}
                     <a class="nav-link text-light" href="/users/dashboard">Dashboard</a>
-                    <a class="nav-link text-light" href="/users/login">Login</a>
                     <a class="nav-link text-light" href="/users/logout">Logout</a>
+                    {{else}}
+                    <a class="nav-link text-light" href="/users/login">Login</a>
+                    <a class="nav-link text-light" href="/users/signup">Sign Up</a>
+                    {{/if}}
                 </div>
             </div>
         </nav>
