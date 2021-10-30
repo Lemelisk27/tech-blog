@@ -1,8 +1,7 @@
-const loginForm = document.querySelector("#submitBtn")
+const submitBtn = document.querySelector("#submitBtn")
 
-loginForm.addEventListener("click",(e)=>{
+submitBtn.addEventListener("click",(e)=>{
     e.preventDefault();
-    console.log("clicked")
     const userObj={
         username:document.querySelector("#username").value,
         password:document.querySelector("#password").value,

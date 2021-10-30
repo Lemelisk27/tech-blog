@@ -12,6 +12,27 @@ router.get("/logout",(req,res)=>{
     res.redirect("/users/login")
 })
 
+router.get("/signup",(req,res)=>{
+    res.render("signup")
+})
+
+router.post("/signup",(req,res)=>{
+    req.session.destroy()
+    User.create({
+        first_name:req.body.first_name,
+        last_name:req.body.last_name,
+        username:req.body.username,
+        email:req.body.email,
+        password:req.body.password,
+    }).then(newUser=>{
+        res.json(newUser)
+        res.redirect("/users/login")
+    }).catch(err=>{
+        console.log(err)
+        res.status(500).json({message:"An Error Occured",err:err})
+    })
+})
+
 router.get("/dashboard",(req,res)=>{
     if(!req.session.user){
         res.redirect("/users/login")
