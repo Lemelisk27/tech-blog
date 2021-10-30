@@ -55,4 +55,20 @@ router.get("/blogs/:id",(req,res)=>{
     })
 })
 
+router.post("/blogs",(req,res)=>{
+    if(!req.session.user){
+        return res.status(401).send("Please Login First")
+    }
+    Comment.create({
+        comment:req.body.comment,
+        blog_id:req.body.blog_id,
+        user_id:req.session.user.id
+    }).then(newComment=>{
+        res.json(newComment)
+    }).catch(err=>{
+        console.log(err)
+        res.status(500).json({message:"An Error Occured",err:err})
+    })
+})
+
 module.exports = router;
